@@ -15,6 +15,19 @@ app.get('/api/roast', async (req, res) => {
         res.status(500).send("An error occurred while fetching Instagram details.");
     }
 });
+
+app.get('/api/praise', async (req, res) => {
+    const id = "virat.kohli";
+    try {
+        const praise = await praiser(id);
+        console.log(praise);
+        res.json(praise);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("An error occurred while fetching Instagram details.");
+    }
+})
+
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
 });
