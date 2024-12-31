@@ -2,7 +2,6 @@ import { scrapeData } from "../scrapper/scrapper";
 
 export async function getInstaDetails(id: string) {
     const html = await scrapeData(id);
-    console.log(html);
 
     const followersMatch = html.match(/(\d+(\.\d+)?[MK]?) Followers/);
     const followingMatch = html.match(/(\d+(\.\d+)?[MK]?) Following/);

@@ -1,7 +1,7 @@
 import express from 'express';
 import { praiser, roaster } from '../ai/ai';
 
-const PORT = 3000;
+const PORT = 4000;
 const app = express();
 
 app.get('/api/roast', async (req, res) => {
@@ -9,7 +9,7 @@ app.get('/api/roast', async (req, res) => {
     try {
         const roast = await roaster(id);
         console.log(roast);
-        res.send(roast);
+        res.status(200).send(roast);
     } catch (error) {
         console.error(error);
         res.status(500).send("An error occurred while fetching Instagram details.");
@@ -21,7 +21,7 @@ app.get('/api/praise', async (req, res) => {
     try {
         const praise = await praiser(id);
         console.log(praise);
-        res.json(praise);
+        res.status(200).send(praise);
     } catch (error) {
         console.error(error);
         res.status(500).send("An error occurred while fetching Instagram details.");
