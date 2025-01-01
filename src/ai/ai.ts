@@ -1,8 +1,6 @@
+import { getInstaDetails } from "@/utils/regexParser";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { configDotenv } from "dotenv";
-import { getInstaDetails } from "../utils/details";
 
-configDotenv()
 const GEMINI_API_KEY: string = process.env.GEMINI_API_KEY || "";
 const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
@@ -33,7 +31,7 @@ export async function roaster(id: string){
 export async function praiser(id: string) {
     try {
         const user = await getInstaDetails(id);
-        const prompt = basePrompt.roastPrompt +
+        const prompt = basePrompt.praisePrompt +
                 `A instagram user with the name ${user.username}
                 and instagram id ${id} has their account with
                 ${user.followers} followers and ${user.following}

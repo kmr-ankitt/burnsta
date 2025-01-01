@@ -1,4 +1,4 @@
-import { scrapeData } from "../scrapper/scrapper";
+import { scrapeData } from "@/scrapper/scrapper";
 
 export async function getInstaDetails(id: string) {
     const html = await scrapeData(id);
@@ -9,7 +9,7 @@ export async function getInstaDetails(id: string) {
     const usernameMatch = html.match(/@(\w+)/);
     const bioMatch = html.match(/on Instagram: "(.*?)"/);
 
-    const parseCount = (count: any) => {
+    const parseCount = (count: string) => {
         if (!count) return 0;
         if (count.includes('M')) return parseFloat(count) * 1e6;
         if (count.includes('K')) return parseFloat(count) * 1e3;
