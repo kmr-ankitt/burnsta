@@ -14,6 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -21,7 +22,9 @@ const formSchema = z.object({
   }),
 });
 
-export function FormComp() {
+export function FormComp({type}: {type: string}) {
+  const route = useRouter();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -29,16 +32,9 @@ export function FormComp() {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    const res = await fetch("http://localhost:4000/api/roast", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(values),
-    });
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    route.push(`/${type}/${values.username}`);
   }
-  
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
