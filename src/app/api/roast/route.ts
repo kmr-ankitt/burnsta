@@ -1,9 +1,9 @@
 import { roaster } from "@/ai/ai";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
-  const id = "kmr_ankitt";
+export async function POST(req: NextRequest) {
   try {
+    const { id }: { id: string } = await req.json();
     const roast = await roaster(id);
     console.log(roast);
     return NextResponse.json(roast, { status: 200 });
