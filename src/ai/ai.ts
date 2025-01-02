@@ -24,7 +24,7 @@ export async function roaster(id: string){
         return response.response.text();
     } catch (error) {
         console.error(error);
-        return "An error occurred while generating roast.";
+        throw new Error("An error occurred while generating roast.");
     }
 }
 
@@ -42,6 +42,6 @@ export async function praiser(id: string) {
         return response.response.text();
     } catch (error) {
         console.error(error);
-        return "An error occurred while generating praise.";
+        throw new Error("An error occurred while generating praise.");
     }
 }
