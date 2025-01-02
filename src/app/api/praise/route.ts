@@ -1,11 +1,11 @@
 import { praiser } from "@/ai/ai";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
-  const id = "kmr_ankitt";
+export async function POST(req : NextRequest) {
   try {
+    const { id }: { id: string } = await req.json();
     const praise = await praiser(id);
-    console.log(praise);
+    console.log([praise]);
     return NextResponse.json(praise, { status: 200 });
   } catch (error) {
     console.error(error);
