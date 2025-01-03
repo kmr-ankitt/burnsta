@@ -32,7 +32,7 @@ export default function GetResponse({ id , type}: { id: string, type : string })
   }, []);
 
   return (
-    <div>
+    <div className="m-5 text-justify text-zinc-200 border-2 border-zinc-200 p-5">
       <h1>{data}</h1>
     </div>
   );

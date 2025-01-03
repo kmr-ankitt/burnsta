@@ -22,7 +22,7 @@ const formSchema = z.object({
   }),
 });
 
-export function FormComp({type}: {type: string}) {
+export function FormComp({ type }: { type: string }) {
   const route = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -37,21 +37,31 @@ export function FormComp({type}: {type: string}) {
   }
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-col gap-4"
+      >
         <FormField
           control={form.control}
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel className="text-lg text-zinc-200 font-bold">
+                Give your username
+              </FormLabel>
               <FormControl>
-                <Input placeholder="Insta Username" {...field} />
+                <Input placeholder="Insta username" className="text-zinc-200" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button
+          variant={"outline"}
+          className="w-full border-2 border-black dark:border-white uppercase bg-white text-black transition duration-200 text-sm shadow-[1px_1px_rgba(0,0,0),2px_2px_rgba(0,0,0),3px_3px_rgba(0,0,0),4px_4px_rgba(0,0,0),5px_5px_0px_0px_rgba(0,0,0)] dark:shadow-[1px_1px_rgba(255,255,255),2px_2px_rgba(255,255,255),3px_3px_rgba(255,255,255),4px_4px_rgba(255,255,255),5px_5px_0px_0px_rgba(255,255,255)] "
+        >
+          Submit
+        </Button>
       </form>
     </Form>
   );
