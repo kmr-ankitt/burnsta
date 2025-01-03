@@ -8,7 +8,7 @@ export default async function Page({
   const id = (await params).id;
   const type = "praise";
   return (
-    <div className="h-full flex items-center justify-center">
+    <div className="h-full w-full">
       <GetResponse id={id} type={type} />
     </div>
   );

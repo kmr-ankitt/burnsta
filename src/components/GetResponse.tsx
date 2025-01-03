@@ -1,9 +1,17 @@
-"use client"
+"use client";
 
 import React, { useEffect } from "react";
+import { Skeleton } from "./ui/skeleton";
 
-export default function GetResponse({ id , type}: { id: string, type : string }) {
+export default function GetResponse({
+  id,
+  type,
+}: {
+  id: string;
+  type: string;
+}) {
   const [data, setData] = React.useState("");
+  const [loading, setLoading] = React.useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,6 +30,7 @@ export default function GetResponse({ id , type}: { id: string, type : string })
 
         const data = await response.json();
         setData(data);
+        setLoading(false);
         console.log(data);
       } catch (error) {
         console.error("Fetch error: ", error);
@@ -32,8 +41,13 @@ export default function GetResponse({ id , type}: { id: string, type : string })
   }, []);
 
   return (
-    <div className="m-5 text-justify text-zinc-200 border-2 border-zinc-200 p-5">
-      <h1>{data}</h1>
+    <div className="h-full w-full flex items-center justify-center">
+      {loading && <Skeleton className="w-[83.33%] h-3/6 rounded-lg" />}
+      {!loading && (
+      <div className="flex items-center justify-center text-justify w-10/12 h-3/6 p-5 text-zinc-200 bg-black/20 rounded-lg">
+        <h1>{data}</h1>
+      </div>
+      )}
     </div>
   );
 }

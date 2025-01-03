@@ -8,7 +8,7 @@ export default async function Page({
   const id = (await params).id;
   const type = 'roast'
   return (
-    <div>
+    <div className="h-full w-full">
       <GetResponse id={id} type={type}/>
     </div>
   );
