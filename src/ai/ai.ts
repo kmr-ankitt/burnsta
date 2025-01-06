@@ -6,8 +6,8 @@ const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 const basePrompt = {
-    roastPrompt: "Roast this instgram user in 8 - 12 lines at max.",
-    praisePrompt: "Praise this instgram user in 8 - 12 lines at max."
+    roastPrompt: "Roast this instgram user within 60 - 64 words.",
+    praisePrompt: "Praise this instgram user withing 60 - 64 words."
 }
 
 export async function roaster(id: string){
