@@ -16,7 +16,7 @@ export default function GetResponse({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/${type}`, {
+        const response = await fetch(`/api/${type}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
