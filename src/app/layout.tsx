@@ -1,16 +1,21 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
+import { ThemeProvider } from "@/components/theme-provider";
+import localFont from "next/font/local";
+import SplashCursor from "@/components/SplashCursor";
+import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
+import { RetroGrid } from "@/components/ui/retro-grid";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const myFont = localFont({
+  src: [{ path: "../../public/fonts/AVGARDD_2.woff" }],
+  variable: "--font-myFont",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const hevalfont = localFont({
+  src: [{ path: "/../../public/fonts/Heavitas.ttf" }],
+  variable: "--font-myFont1",
 });
 
 export const metadata: Metadata = {
@@ -25,12 +30,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-      <BackgroundGradientAnimation  className="z-10 fixed h-full w-full ">
-        {children}
-      </BackgroundGradientAnimation>
+      <body className={`font-myFont antialiased`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <RetroGrid className="-z-10"/>
+          <SplashCursor />
+          <div className="z-10">{children}</div>
+        </ThemeProvider>
       </body>
     </html>
   );
