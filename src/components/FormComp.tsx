@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -15,6 +14,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
+import MyButton from "./MyButton";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -22,8 +22,14 @@ const formSchema = z.object({
   }),
 });
 
-export function FormComp({ type }: { type: string }) {
-  const route = useRouter();
+export function FormComp({
+  type,
+  className,
+}: {
+  type: string;
+  className?: string;
+}) {
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -33,13 +39,13 @@ export function FormComp({ type }: { type: string }) {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    route.push(`/${type}/${values.username}`);
+    router.push(`/${type}/${values.username}`);
   }
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-4"
+        className={` ${className} flex flex-col gap-5`}
       >
         <FormField
           control={form.control}
@@ -50,18 +56,19 @@ export function FormComp({ type }: { type: string }) {
                 Give your username
               </FormLabel>
               <FormControl>
-                <Input placeholder="Insta username" className="text-zinc-200" {...field} />
+                <Input
+                  placeholder="Insta username"
+                  className="text-zinc-200"
+                  {...field}
+                />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-[.8rem] font-bold pt-2">
+                {form.formState.errors.username?.message}
+              </FormMessage>
             </FormItem>
           )}
         />
-        <Button
-          variant={"outline"}
-          className="w-full border-2 border-black dark:border-white uppercase bg-white text-black transition duration-200 text-sm shadow-[1px_1px_rgba(0,0,0),2px_2px_rgba(0,0,0),3px_3px_rgba(0,0,0),4px_4px_rgba(0,0,0),5px_5px_0px_0px_rgba(0,0,0)] dark:shadow-[1px_1px_rgba(255,255,255),2px_2px_rgba(255,255,255),3px_3px_rgba(255,255,255),4px_4px_rgba(255,255,255),5px_5px_0px_0px_rgba(255,255,255)] "
-        >
-          Submit
-        </Button>
+        <MyButton text="submit" className="w-full" />
       </form>
     </Form>
   );

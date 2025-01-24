@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "./ui/button";
 import WordRotate from "./ui/word-rotate";
 import { AuroraText } from "./ui/aurora-text";
+import MyButton from "./MyButton";
 
 export default function Hero() {
   return (
@@ -14,20 +14,10 @@ export default function Hero() {
       </div>
       <div className="flex justify-center gap-3">
         <Link href="/roast">
-          <Button
-            variant={"outline"}
-            className="px-7 border-2 border-black dark:border-white uppercase bg-white text-black transition duration-200 text-sm shadow-[1px_1px_rgba(0,0,0),2px_2px_rgba(0,0,0),3px_3px_rgba(0,0,0),4px_4px_rgba(0,0,0),5px_5px_0px_0px_rgba(0,0,0)] dark:shadow-[1px_1px_rgba(0,0,0),2px_2px_rgba(255,255,255),3px_3px_rgba(255,255,255),4px_4px_rgba(255,255,255),5px_5px_0px_0px_rgba(255,255,255)] "
-          >
-            Roast me
-          </Button>
+          <MyButton text="Roast me" className="font-bold" />
         </Link>
         <Link href="/praise">
-          <Button
-            variant={"outline"}
-            className="px-7 border-2 border-black dark:border-white uppercase bg-white text-black transition duration-200 text-sm shadow-[1px_1px_rgba(0,0,0),2px_2px_rgba(0,0,0),3px_3px_rgba(0,0,0),4px_4px_rgba(0,0,0),5px_5px_0px_0px_rgba(0,0,0)] dark:shadow-[1px_1px_rgba(0,0,0),2px_2px_rgba(255,255,255),3px_3px_rgba(255,255,255),4px_4px_rgba(255,255,255),5px_5px_0px_0px_rgba(255,255,255)] "
-          >
-            Praise me
-          </Button>
+          <MyButton text="Praise me" className="font-bold" />
         </Link>
       </div>
     </div>
