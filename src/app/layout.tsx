@@ -39,12 +39,7 @@ export default function RootLayout({
         >
           <RetroGrid className="-z-10" />
           <SplashCursor />
-          <div className="z-10">
-            <div className="flex justify-end p-4 w-full">
-              <ModeToggle />
-            </div>
-            {children}
-          </div>
+          <div className="z-10">{children}</div>
         </ThemeProvider>
       </body>
     </html>

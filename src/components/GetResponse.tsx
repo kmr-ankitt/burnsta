@@ -45,7 +45,14 @@ export default function GetResponse({
 
   return (
     <div className="h-[85vh] w-full flex items-center justify-center">
-      <Card text={data} isLoading={loading} error={error} type={type} pfp={pfp} />
+      <Card
+        text={data}
+        loading={loading}
+        error={error}
+        type={type}
+        pfp={pfp}
+        setLoading={setLoading}
+      />
     </div>
   );
 }

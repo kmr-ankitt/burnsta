@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, Suspense } from "react";
 import { Download, RefreshCw } from "lucide-react";
 import html2canvas from "html2canvas";
-import { Skeleton } from "./ui/skeleton";
+import { SparklesText } from "./ui/sparkleText";
+import { BlurFade } from "./ui/blurAnimaton";
 
 const backgrounds = [
   "bg-gradient-to-tl from-orange-900 via-red-600 to-yellow-500",
@@ -17,16 +18,18 @@ const backgrounds = [
 
 export default function Card({
   text,
-  isLoading,
+  loading,
   error,
   type,
   pfp,
+  setLoading,
 }: {
   text: string;
-  isLoading: boolean;
+  loading: boolean;
   error: string;
   type: string;
   pfp: string;
+  setLoading: (loading: boolean) => void;
 }) {
   const [currentBg, setCurrentBg] = useState(0);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -40,21 +43,23 @@ export default function Card({
       const ctx = canvas.getContext("2d");
       if (ctx) {
         const img = new Image();
-        img.crossOrigin = "anonymous"; // Ensure CORS is handled
+        img.crossOrigin = "anonymous";
         img.src = pfp;
 
         img.onload = () => {
-          ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear previous
-          ctx.drawImage(img, 0, 0, canvas.width, canvas.height); // Draw the image
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          setLoading(false);
         };
         img.onerror = () => {
           console.error("Failed to load profile picture");
+          setLoading(false);
         };
       }
     };
 
     loadPfp();
-  }, [pfp]);
+  }, [pfp, setLoading]);
 
   const downloadImage = async () => {
     const element = document.getElementById(`${type}-card`);
@@ -84,45 +89,56 @@ export default function Card({
             id={`${type}-card`}
             className={`absolute top-0 left-0 w-full h-full ${backgrounds[currentBg]} overflow-hidden`}
           >
-            {isLoading ? (
-              <div className="w-full max-w-[450px] mb-6">
-                <div className="relative" style={{ paddingTop: "177.78%" }}>
-                  <div className="absolute top-0 left-0 w-full h-full">
-                    <Skeleton
-                      className={`w-full h-full ${backgrounds[currentBg]}`}
+            <Suspense
+              fallback={
+                <div className="w-full h-full flex items-center justify-center">
+                  <p>Loading...</p>
+                </div>
+              }
+            >
+              {loading ? (
+                <div className="relative h-full flex flex-col justify-center items-center p-8 text-white">
+                  <div className="bg-black/30 backdrop-blur-sm p-5 rounded-3xl flex flex-col items-center">
+                    <SparklesText
+                      className="text-lg w-full capitalize"
+                      text={`Generating ${type}`}
                     />
                   </div>
                 </div>
-              </div>
-            ) : error ? (
-              <div className="relative h-full flex flex-col justify-center items-center p-8 text-white">
-                <div className="bg-black/30 backdrop-blur-sm p-5 rounded-3xl flex flex-col items-center">
-                  <p className="text-lg font-semibold">User not found 😥</p>
+              ) : error ? (
+                <div className="relative h-full flex flex-col justify-center items-center p-8 text-white">
+                  <div className="bg-black/30 backdrop-blur-sm p-5 rounded-3xl flex flex-col items-center">
+                    <BlurFade>
+                      <p className="text-lg font-semibold">User not found 😥</p>
+                    </BlurFade>
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <div className="relative h-full flex flex-col justify-center p-10 text-white">
-                <div className="bg-black/30 backdrop-blur-sm p-8 rounded-3xl flex flex-col items-center">
-                  <canvas
-                    ref={canvasRef}
-                    width={96}
-                    height={96}
-                    className="w-24 h-24 rounded-full border-4 border-zinc-700 mb-6"
-                  />
-                  <p className="text-md font-semibold leading-tight text-justify lowercase">
-                    {text.split(" ").map((word, index) =>
-                      word.startsWith("*") && word.endsWith("*") ? (
-                        <span key={index} className="font-extrabold">
-                          {word.slice(1, -1)}{" "}
-                        </span>
-                      ) : (
-                        <span key={index}>{word} </span>
-                      )
-                    )}
-                  </p>
+              ) : (
+                <div className="relative h-full flex flex-col justify-center p-10 text-white">
+                  <BlurFade>
+                    <div className="bg-black/30 backdrop-blur-sm p-8 rounded-3xl flex flex-col items-center">
+                      <canvas
+                        ref={canvasRef}
+                        width={96}
+                        height={96}
+                        className="w-24 h-24 rounded-full border-4 border-zinc-700 mb-6"
+                      />
+                      <p className="text-md font-semibold leading-tight text-justify lowercase">
+                        {text.split(" ").map((word, index) =>
+                          word.startsWith("*") && word.endsWith("*") ? (
+                            <span key={index} className="font-extrabold">
+                              {word.slice(1, -1)}{" "}
+                            </span>
+                          ) : (
+                            <span key={index}>{word} </span>
+                          )
+                        )}
+                      </p>
+                    </div>
+                  </BlurFade>
                 </div>
-              </div>
-            )}
+              )}
+            </Suspense>
           </div>
         </div>
       </div>
