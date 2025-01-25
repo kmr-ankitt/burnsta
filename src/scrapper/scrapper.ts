@@ -1,4 +1,4 @@
-import puppeteer, { executablePath } from "puppeteer";
+import puppeteer, { executablePath } from "puppeteer-core";
 
 export async function scrapeData(id: string): Promise<{html: string, userpfp: string}> {
   let browser;
