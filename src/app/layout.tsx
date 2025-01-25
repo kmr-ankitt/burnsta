@@ -3,8 +3,8 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import localFont from "next/font/local";
 import SplashCursor from "@/components/SplashCursor";
-import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
 import { RetroGrid } from "@/components/ui/retro-grid";
+import { ModeToggle } from "@/components/ui/modeToggle";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const myFont = localFont({
@@ -37,9 +37,14 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <RetroGrid className="-z-10"/>
+          <RetroGrid className="-z-10" />
           <SplashCursor />
-          <div className="z-10">{children}</div>
+          <div className="z-10">
+            <div className="flex justify-end p-4 w-full">
+              <ModeToggle />
+            </div>
+            {children}
+          </div>
         </ThemeProvider>
       </body>
     </html>

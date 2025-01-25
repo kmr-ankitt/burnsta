@@ -68,7 +68,7 @@ export function FormComp({
             </FormItem>
           )}
         />
-        <MyButton text="submit" className="w-full" />
+        <MyButton text={`GET ${type}ED`} className="w-full" />
       </form>
     </Form>
   );
