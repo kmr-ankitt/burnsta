@@ -12,11 +12,11 @@ export function ModeToggle() {
   return (
     <div>
       {theme === "dark" ? (
-        <Button variant="outline" size="icon" onClick={() => setTheme("light")}>
+        <Button variant="outline" size="icon" className="rounded-full" onClick={() => setTheme("light")}>
           <Sun className="h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
         </Button>
       ) : (
-        <Button variant="outline" size="icon" onClick={() => setTheme("dark")}>
+        <Button variant="outline" size="icon" className="rounded-full" onClick={() => setTheme("dark")}>
           <Moon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
         </Button>
       )}

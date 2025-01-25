@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { Skeleton } from "./ui/skeleton";
+import Card from "./Card";
 
 export default function GetResponse({
   id,
@@ -42,12 +42,7 @@ export default function GetResponse({
 
   return (
     <div className="h-full w-full flex items-center justify-center">
-      {loading && <Skeleton className="w-[83.33%] h-3/6 rounded-lg" />}
-      {!loading && (
-      <div className="flex items-center justify-center text-justify w-10/12 h-3/6 p-5 text-zinc-200 bg-black/20 rounded-lg">
-        <h1>{data}</h1>
-      </div>
-      )}
+        <Card text={data} isLoading={loading} type={type} />
     </div>
   );
 }
