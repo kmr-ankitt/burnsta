@@ -4,7 +4,6 @@ import { ThemeProvider } from "@/components/theme-provider";
 import localFont from "next/font/local";
 import SplashCursor from "@/components/SplashCursor";
 import { RetroGrid } from "@/components/ui/retro-grid";
-import { ModeToggle } from "@/components/ui/modeToggle";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const myFont = localFont({

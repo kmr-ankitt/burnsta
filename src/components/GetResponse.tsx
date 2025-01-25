@@ -33,6 +33,7 @@ export default function GetResponse({
         const responseData = await response.json();
         setData(responseData[type]);
         setPfp(responseData.userpfp);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error : any) {
         setError(error.message);
       } finally {
@@ -44,14 +45,14 @@ export default function GetResponse({
   }, [id, type]);
 
   return (
-    <div className="h-[85vh] w-full flex items-center justify-center">
+    <div className="h-[90vh] w-full flex items-center justify-center md:h-[100vh] lg:h-[100vh]">
       <Card
-        text={data}
-        loading={loading}
-        error={error}
-        type={type}
-        pfp={pfp}
-        setLoading={setLoading}
+      text={data}
+      loading={loading}
+      error={error}
+      type={type}
+      pfp={pfp}
+      setLoading={setLoading}
       />
     </div>
   );
