@@ -125,12 +125,12 @@ export default function Card({
                       />
                       <p className="text-md font-semibold leading-tight text-justify lowercase">
                         {text.split(" ").map((word, index) =>
-                          word.startsWith("*") && word.endsWith("*") ? (
-                            <span key={index} className="font-extrabold">
-                              {word.slice(1, -1)}{" "}
-                            </span>
+                          /\*(.*?)\*/.test(word) ? (
+                          <span key={index} className="font-bold">
+                            {word.replace(/\*(.*?)\*/, "$1")}{" "}
+                          </span>
                           ) : (
-                            <span key={index}>{word} </span>
+                          <span key={index}>{word} </span>
                           )
                         )}
                       </p>
