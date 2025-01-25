@@ -44,7 +44,7 @@ export default function GetResponse({
   }, [id, type]);
 
   return (
-    <div className="h-full w-full flex items-center justify-center">
+    <div className="h-[85vh] w-full flex items-center justify-center">
       <Card text={data} isLoading={loading} error={error} type={type} pfp={pfp} />
     </div>
   );
