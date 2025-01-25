@@ -1,6 +1,6 @@
 import puppeteer, { executablePath } from "puppeteer";
 
-export async function scrapeData(id: string): Promise<string> {
+export async function scrapeData(id: string): Promise<{html: string, userpfp: string}> {
   let browser;
   try {
     browser = await puppeteer.launch({
@@ -25,7 +25,12 @@ export async function scrapeData(id: string): Promise<string> {
       "head > meta[name='description']",
       (element) => element.content
     );
-    return html;
+
+    const userpfp = await page.$eval(
+      "head > meta[property='og:image']",
+      (element) => element.content
+    ) || "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg?20200418092106";
+    return {html, userpfp};
   } catch (error) {
     throw new Error("User not found." + error);
   } finally {

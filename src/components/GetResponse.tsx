@@ -11,6 +11,7 @@ export default function GetResponse({
   type: string;
 }) {
   const [data, setData] = useState("");
+  const [pfp, setPfp] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -30,8 +31,9 @@ export default function GetResponse({
         }
 
         const responseData = await response.json();
-        setData(responseData);
-      } catch (error: any) {
+        setData(responseData[type]);
+        setPfp(responseData.userpfp);
+      } catch (error : any) {
         setError(error.message);
       } finally {
         setLoading(false);
@@ -43,7 +45,7 @@ export default function GetResponse({
 
   return (
     <div className="h-full w-full flex items-center justify-center">
-      <Card text={data} isLoading={loading} error={error} type={type} />
+      <Card text={data} isLoading={loading} error={error} type={type} pfp={pfp} />
     </div>
   );
 }

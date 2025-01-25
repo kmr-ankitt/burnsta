@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Download, Share2, RefreshCw } from "lucide-react";
 import html2canvas from "html2canvas";
 import { Skeleton } from "./ui/skeleton";
+import Image from "next/image";
 
 const backgrounds = [
   "bg-gradient-to-tl from-indigo-900 via-indigo-400 to-indigo-900",
@@ -21,14 +22,16 @@ export default function Card({
   isLoading,
   error,
   type,
+  pfp
 }: {
   text: string;
   isLoading: boolean;
   error: string;
   type: string;
+  pfp: string;
 }) {
   const [currentBg, setCurrentBg] = useState(0);
-
+  console.log(pfp)
   const downloadImage = async () => {
     const element = document.getElementById(`${type}-card`);
     if (element) {
@@ -98,9 +101,9 @@ export default function Card({
             ) : (
               <div className="relative h-full flex flex-col justify-center p-8 text-white">
                 <div className="bg-black/30 backdrop-blur-sm p-8 rounded-3xl flex flex-col items-center">
-                  <div className="w-20 h-20 bg-gradient-to-br from-white/20 to-white/5 rounded-full flex items-center justify-center mb-6">
-                    <span className="text-4xl">🔥</span>
-                  </div>
+                    <div className="w-24 h-24 bg-gradient-to-br from-white/20 to-white/5 rounded-full flex items-center justify-center mb-6 border-4 border-zinc-700 ">
+                    <Image src={pfp} height={96} width={96} alt="userpfp" className="rounded-full" />
+                    </div>
                   <p className="text-lg font-semibold leading-tight text-justify">
                     {text.split(" ").map((word, index) =>
                       word.startsWith("*") && word.endsWith("*") ? (
