@@ -19,10 +19,12 @@ const backgrounds = [
 export default function Card({
   text,
   isLoading,
+  error,
   type,
 }: {
   text: string;
   isLoading: boolean;
+  error: string;
   type: string;
 }) {
   const [currentBg, setCurrentBg] = useState(0);
@@ -72,7 +74,6 @@ export default function Card({
       {/* Instagram Story Card Container */}
       <div className="w-full max-w-[450px] mb-6">
         <div className="relative" style={{ paddingTop: "177.78%" }}>
-          {" "}
           {/* 9:16 aspect ratio */}
           <div
             id={`${type}-card`}
@@ -83,16 +84,22 @@ export default function Card({
                 <div className="relative" style={{ paddingTop: "177.78%" }}>
                   <div className="absolute top-0 left-0 w-full h-full">
                     <Skeleton
-                      className={`w-full h-full ${backgrounds[currentBg]}}`}
+                      className={`w-full h-full ${backgrounds[currentBg]}`}
                     />
                   </div>
+                </div>
+              </div>
+            ) : error ? (
+              <div className="relative h-full flex flex-col justify-center items-center p-8 text-white">
+                <div className="bg-black/30 backdrop-blur-sm p-5 rounded-3xl flex flex-col items-center">
+                  <p className="text-lg font-semibold">User not found 😥</p>
                 </div>
               </div>
             ) : (
               <div className="relative h-full flex flex-col justify-center p-8 text-white">
                 <div className="bg-black/30 backdrop-blur-sm p-8 rounded-3xl flex flex-col items-center">
                   <div className="w-20 h-20 bg-gradient-to-br from-white/20 to-white/5 rounded-full flex items-center justify-center mb-6">
-                  <span className="text-4xl">🔥</span>
+                    <span className="text-4xl">🔥</span>
                   </div>
                   <p className="text-lg font-semibold leading-tight text-justify">
                     {text.split(" ").map((word, index) =>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "./Card";
 
 export default function GetResponse({
@@ -10,8 +10,9 @@ export default function GetResponse({
   id: string;
   type: string;
 }) {
-  const [data, setData] = React.useState("");
-  const [loading, setLoading] = React.useState(true);
+  const [data, setData] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,21 +29,21 @@ export default function GetResponse({
           throw new Error("User not found");
         }
 
-        const data = await response.json();
-        setData(data);
+        const responseData = await response.json();
+        setData(responseData);
+      } catch (error: any) {
+        setError(error.message);
+      } finally {
         setLoading(false);
-        console.log(data);
-      } catch (error) {
-        console.error("Fetch error: ", error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [id, type]);
 
   return (
     <div className="h-full w-full flex items-center justify-center">
-        <Card text={data} isLoading={loading} type={type} />
+      <Card text={data} isLoading={loading} error={error} type={type} />
     </div>
   );
 }
