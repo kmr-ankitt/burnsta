@@ -1,11 +1,14 @@
-import puppeteer, { executablePath } from "puppeteer-core";
+import puppeteerCore from 'puppeteer-core';
+import Chromium from "@sparticuz/chromium-min";
 
 export async function scrapeData(id: string): Promise<{html: string, userpfp: string}> {
   let browser;
+  const executablePath = await Chromium.executablePath('https://github.com/Sparticuz/chromium/releases/download/v131.0.1/chromium-v131.0.1-pack.tar')
+
   try {
-    browser = await puppeteer.launch({
-      headless: true,
-      executablePath: executablePath(),
+    browser = await puppeteerCore.launch({
+      headless: Chromium.headless,
+      executablePath: executablePath,
       args: [
         "--no-sandbox",
         "--disable-setuid-sandbox",
@@ -26,6 +29,7 @@ export async function scrapeData(id: string): Promise<{html: string, userpfp: st
       (element) => element.content
     );
 
+    console.log(html)
     const userpfp = await page.$eval(
       "head > meta[property='og:image']",
       (element) => element.content
