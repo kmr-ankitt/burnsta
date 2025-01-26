@@ -1,4 +1,4 @@
-import puppeteer from 'puppeteer-core';
+import puppeteerCore from 'puppeteer-core';
 import chromium from "@sparticuz/chromium";
 
 export async function scrapeData(id: string): Promise<{html: string, userpfp: string}> {
@@ -6,7 +6,7 @@ export async function scrapeData(id: string): Promise<{html: string, userpfp: st
   const remoteExecutablePath = 'https://github.com/Sparticuz/chromium/releases/download/v121.0.0/chromium-v121.0.0-pack.tar';
 
   try {
-    browser = await puppeteer.launch({
+    browser = await puppeteerCore.launch({
       args: chromium.args.concat(['--no-sandbox', '--disable-setuid-sandbox']),
       defaultViewport: chromium.defaultViewport,
       headless: chromium.headless,
