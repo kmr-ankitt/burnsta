@@ -1,19 +1,16 @@
-import puppeteerCore from 'puppeteer-core';
-import Chromium from "@sparticuz/chromium-min";
+import puppeteer from 'puppeteer-core';
+import chromium from "@sparticuz/chromium";
 
 export async function scrapeData(id: string): Promise<{html: string, userpfp: string}> {
   let browser;
-  const executablePath = await Chromium.executablePath('https://github.com/Sparticuz/chromium/releases/download/v131.0.1/chromium-v131.0.1-pack.tar')
+  // const executablePath = await Chromium.executablePath('https://github.com/Sparticuz/chromium/releases/download/v131.0.1/chromium-v131.0.1-pack.tar')
 
   try {
-    browser = await puppeteerCore.launch({
-      headless: Chromium.headless,
-      executablePath: executablePath,
-      args: [
-        "--no-sandbox",
-        "--disable-setuid-sandbox",
-        "--disable-blink-features=AutomationControlled",
-      ],
+    browser = await puppeteer.launch({
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      headless: chromium.headless,
+      executablePath: await chromium.executablePath(),
     });
     const page = await browser.newPage();
     const url = `https://www.instagram.com/${id}/`;
