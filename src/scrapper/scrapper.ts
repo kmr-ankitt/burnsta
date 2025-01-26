@@ -3,11 +3,10 @@ import chromium from "@sparticuz/chromium";
 
 export async function scrapeData(id: string): Promise<{html: string, userpfp: string}> {
   let browser;
-  // const executablePath = await Chromium.executablePath('https://github.com/Sparticuz/chromium/releases/download/v131.0.1/chromium-v131.0.1-pack.tar')
 
   try {
     browser = await puppeteer.launch({
-      args: chromium.args,
+      args: chromium.args.concat(['--no-sandbox', '--disable-setuid-sandbox']),
       defaultViewport: chromium.defaultViewport,
       headless: chromium.headless,
       executablePath: await chromium.executablePath(),
