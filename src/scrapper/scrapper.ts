@@ -3,14 +3,13 @@ import chromium from "@sparticuz/chromium";
 
 export async function scrapeData(id: string): Promise<{html: string, userpfp: string}> {
   let browser;
-  const remoteExecutablePath = 'https://github.com/Sparticuz/chromium/releases/download/v121.0.0/chromium-v121.0.0-pack.tar';
 
   try {
     browser = await puppeteerCore.launch({
       args: chromium.args.concat(['--no-sandbox', '--disable-setuid-sandbox']),
       defaultViewport: chromium.defaultViewport,
       headless: chromium.headless,
-      executablePath: await chromium.executablePath(remoteExecutablePath),
+      executablePath: await chromium.executablePath(),
     });
     const page = await browser.newPage();
     const url = `https://www.instagram.com/${id}/`;
