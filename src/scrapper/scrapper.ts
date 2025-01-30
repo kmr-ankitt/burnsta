@@ -1,5 +1,5 @@
 import puppeteerCore from 'puppeteer-core';
-import chromium from "@sparticuz/chromium";
+import chromium from "@sparticuz/chromium-min";
 
 export async function scrapeData(id: string): Promise<{html: string, userpfp: string}> {
   let browser;
