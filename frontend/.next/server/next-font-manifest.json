@@ -1,6 +1,19 @@
 {
-  "app": {},
-  "appUsingSizeAdjust": false,
+  "app": {
+    "[project]/src/app/page": [
+      "static/media/AVGARDD_2-s.p.68f8dcf0.woff",
+      "static/media/Heavitas-s.p.d66830d0.ttf"
+    ],
+    "[project]/src/app/roast/[id]/page": [
+      "static/media/AVGARDD_2-s.p.68f8dcf0.woff",
+      "static/media/Heavitas-s.p.d66830d0.ttf"
+    ],
+    "[project]/src/app/_not-found/page": [
+      "static/media/AVGARDD_2-s.p.68f8dcf0.woff",
+      "static/media/Heavitas-s.p.d66830d0.ttf"
+    ]
+  },
+  "appUsingSizeAdjust": true,
   "pages": {},
   "pagesUsingSizeAdjust": false
 }

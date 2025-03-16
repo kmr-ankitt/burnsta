@@ -4,35 +4,10 @@ import { praiser, roaster } from "./ai/ai";
 const app = express();
 const port = 4000;
 
-const rateLimitMap = new Map<string, { count: number; lastRequest: number }>();
-const RATE_LIMIT = 20; // Max requests
-const TIME_WINDOW = 60 * 1000; // Time window in milliseconds (1 minute)
-
 app.use(express.json());
 
 app.post("/roast", async (req: any, res: any) => {
   try {
-    const forwardedFor = req.headers["x-forwarded-for"] as string;
-    const ip = (forwardedFor?.split(",")[0] || req.headers["x-real-ip"] || "unknown").trim();
-    const currentTime = Date.now();
-
-    // Rate limiting logic
-    const rateData = rateLimitMap.get(ip);
-    if (rateData) {
-      const { count, lastRequest } = rateData;
-      if (currentTime - lastRequest < TIME_WINDOW) {
-        if (count >= RATE_LIMIT) {
-          return res.status(429).json({ error: "Rate limit exceeded. Please try again later." });
-        }
-        rateLimitMap.set(ip, { count: count + 1, lastRequest: currentTime });
-      } else {
-        rateLimitMap.set(ip, { count: 1, lastRequest: currentTime });
-      }
-    } else {
-      rateLimitMap.set(ip, { count: 1, lastRequest: currentTime });
-    }
-
-    // Parse JSON request body
     let id: string;
     try {
       const body = req.body;
@@ -40,6 +15,7 @@ app.post("/roast", async (req: any, res: any) => {
     } catch {
       return res.status(400).json({ error: "Invalid JSON body." });
     }
+    console.log(id)
 
     // Call the `roaster` function
     const roast = await roaster(id);
@@ -52,28 +28,6 @@ app.post("/roast", async (req: any, res: any) => {
 
 app.post("/praise", async (req : any, res : any) => {
   try {
-    // Extract client IP
-    const forwardedFor = req.headers["x-forwarded-for"] as string;
-    const ip = (forwardedFor?.split(",")[0] || req.headers["x-real-ip"] || "unknown").trim();
-    const currentTime = Date.now();
-
-    // Rate limiting logic
-    const rateData = rateLimitMap.get(ip);
-    if (rateData) {
-      const { count, lastRequest } = rateData;
-      if (currentTime - lastRequest < TIME_WINDOW) {
-        if (count >= RATE_LIMIT) {
-          return res.status(429).json({ error: "Rate limit exceeded. Please try again later." });
-        }
-        rateLimitMap.set(ip, { count: count + 1, lastRequest: currentTime });
-      } else {
-        rateLimitMap.set(ip, { count: 1, lastRequest: currentTime });
-      }
-    } else {
-      rateLimitMap.set(ip, { count: 1, lastRequest: currentTime });
-    }
-
-    // Parse JSON request body
     let id: string;
     try {
       const body = req.body;
