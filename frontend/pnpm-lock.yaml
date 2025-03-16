@@ -23,9 +23,6 @@ importers:
       '@radix-ui/react-slot':
         specifier: ^1.1.1
         version: 1.1.1(@types/react@19.0.2)(react@19.0.0)
-      '@sparticuz/chromium':
-        specifier: ^131.0.1
-        version: 131.0.1
       '@sparticuz/chromium-min':
         specifier: ^131.0.1
         version: 131.0.1
@@ -683,10 +680,6 @@ packages:
 
   '@sparticuz/chromium-min@131.0.1':
     resolution: {integrity: sha512-kQqKflJtjcBb8aA1b6L4dhU/8UbCJHcjb3au8cjBhKAG7nzqh//92rHCB6ULkgV0CMEQmfp3LDBQ/W8Wg2k+Yg==}
-    engines: {node: '>= 16'}
-
-  '@sparticuz/chromium@131.0.1':
-    resolution: {integrity: sha512-VfmHkQmb/Px0zjwdSQwjRMwFw63Qfj+g4Giumz4jiAGEpXHgIZk6xEwlUz6yiUHVDveK2TEgMR2MR6I3okOE7w==}
     engines: {node: '>= 16'}
 
   '@swc/counter@0.1.3':
@@ -3172,13 +3165,6 @@ snapshots:
   '@rushstack/eslint-patch@1.10.4': {}
 
   '@sparticuz/chromium-min@131.0.1':
-    dependencies:
-      follow-redirects: 1.15.9
-      tar-fs: 3.0.6
-    transitivePeerDependencies:
-      - debug
-
-  '@sparticuz/chromium@131.0.1':
     dependencies:
       follow-redirects: 1.15.9
       tar-fs: 3.0.6
